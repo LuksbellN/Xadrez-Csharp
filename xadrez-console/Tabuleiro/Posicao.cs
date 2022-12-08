@@ -1,4 +1,4 @@
-﻿namespace Tabuleiro {
+﻿namespace tabuleiro {
     internal class Posicao {
         public int Linha { get; private set; }
         public int Coluna { get; private set; }
