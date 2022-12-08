@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tabuleiro;
+using Xadrez;
 
 namespace xadrez_console {
     internal class Tela {
@@ -32,6 +33,14 @@ namespace xadrez_console {
                 Console.Write(peca);
                 Console.ForegroundColor = aux;
             }
+        }
+
+        public static PosicaoXadrez LerPosicaoXadrez() {
+            string s = Console.ReadLine();
+            char coluna = s[0];
+            int linha = int.Parse(s.Substring(1));
+
+            return new PosicaoXadrez(coluna, linha);
         }
     }
 }

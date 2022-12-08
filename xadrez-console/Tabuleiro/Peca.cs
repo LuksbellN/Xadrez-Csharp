@@ -17,8 +17,11 @@ namespace tabuleiro {
             CorCor = cor;
             Tab = tabuleiro;
         }
-        public void AlterarPosicao(Posicao pos) {
+        public void AlterarPosicao(Posicao? pos) {
             PosicaoPosicao = pos;
+        }
+        public void IncrementarQuantMovimento() {
+            QtdMovimentos++;
         }
     }
 }

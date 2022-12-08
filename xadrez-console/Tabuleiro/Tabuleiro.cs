@@ -9,7 +9,7 @@ namespace tabuleiro {
     internal class Tabuleiro {
         public int Linhas { get; private set; }
         public int Colunas { get; private set; }
-        public Peca[,] Pecas { get; private set; }
+        public Peca?[,] Pecas { get; private set; }
 
         public Tabuleiro(int linhas, int colunas) {
             Linhas = linhas;
@@ -33,6 +33,15 @@ namespace tabuleiro {
             if (ExistePeca(pos)) throw new TabuleiroException("Já existe uma peça nessa posição!");
             Pecas[pos.Linha, pos.Coluna] = p;
             p.AlterarPosicao(pos);
+        }
+        public Peca? RetirarPeca(Posicao pos) {
+            if (PecaPeca(pos) == null) {
+                return null;
+            }
+            Peca aux = PecaPeca(pos);
+            aux.AlterarPosicao(null);
+            Pecas[pos.Linha, pos.Coluna] = null;
+            return aux;
         }
 
         public bool PosicaoValida(Posicao pos) {
