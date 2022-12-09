@@ -41,7 +41,7 @@ namespace Xadrez {
             }
 
             // Sudoeste
-            pos.DefinirValores(PosicaoPosicao.Linha + 1, PosicaoPosicao.Coluna + 1);
+            pos.DefinirValores(PosicaoPosicao.Linha + 1, PosicaoPosicao.Coluna - 1);
             if (PodeMover(pos) && Tab.PosicaoValida(pos)) {
                 matriz[pos.Linha, pos.Coluna] = true;
             }

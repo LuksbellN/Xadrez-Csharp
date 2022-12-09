@@ -1,13 +1,20 @@
-﻿using System;
+﻿using tabuleiro;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using tabuleiro;
 using Xadrez;
+using System;
 
 namespace xadrez_console {
     internal class Tela {
+
+        public static void ImprimirPartida(PartidaXadrez partida) {
+            ImprimirTabuleiro(partida.Tab);
+
+            Console.WriteLine();
+            ImprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.Turno);
+            Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+        }
         public static void ImprimirTabuleiro(Tabuleiro tab) {
             for (int i = 0; i < tab.Linhas; i++) {
                 Console.Write(8 - i + " ");
@@ -58,6 +65,26 @@ namespace xadrez_console {
                 }
             }
         }
+        public static void ImprimirPecasCapturadas(PartidaXadrez partida) {
+            Console.WriteLine("Peças capturadas");
+            Console.Write("Brancas: ");
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        public static void ImprimirConjunto(HashSet<Peca> conjunto) {
+            Console.Write("[");
+            foreach(Peca x in conjunto) {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
+        } 
 
         public static PosicaoXadrez LerPosicaoXadrez() {
             string s = Console.ReadLine();
