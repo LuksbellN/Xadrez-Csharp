@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using tabuleiro;
 
 namespace tabuleiro {
-    internal class Peca {
-        public Posicao? PosicaoPosicao { get; private set; }
+    abstract class Peca {
+        public Posicao PosicaoPosicao { get; set; }
         public Cor CorCor { get; protected set; }
         public int QtdMovimentos { get; protected set; }
         public Tabuleiro Tab { get; protected set; }
@@ -16,12 +16,12 @@ namespace tabuleiro {
             PosicaoPosicao = null;
             CorCor = cor;
             Tab = tabuleiro;
-        }
-        public void AlterarPosicao(Posicao? pos) {
-            PosicaoPosicao = pos;
+            QtdMovimentos = 0;
         }
         public void IncrementarQuantMovimento() {
             QtdMovimentos++;
         }
+
+        public abstract bool[,] MovimentosPossiveis();
     }
 }
