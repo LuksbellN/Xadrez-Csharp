@@ -22,6 +22,23 @@ namespace tabuleiro {
             QtdMovimentos++;
         }
 
+        public bool ExisteMovimentosPossiveis() {
+            bool[,] matriz = MovimentosPossiveis();
+            for (int i = 0; i < Tab.Linhas; i++) {
+                for (int j = 0; j < Tab.Colunas; j++) {
+                    if (matriz[i, j]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool PodeMoverPara(Posicao destino) {
+            return MovimentosPossiveis()[destino.Linha, destino.Coluna];
+        }
+
+
         public abstract bool[,] MovimentosPossiveis();
     }
 }

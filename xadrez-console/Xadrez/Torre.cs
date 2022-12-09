@@ -1,4 +1,5 @@
 ﻿using tabuleiro;
+using System.Linq;
 
 namespace Xadrez {
     internal class Torre : Peca {
