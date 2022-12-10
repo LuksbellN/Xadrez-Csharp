@@ -41,6 +41,10 @@ namespace tabuleiro {
         public bool MovimentoPossivel(Posicao destino) {
             return MovimentosPossiveis()[destino.Linha, destino.Coluna];
         }
+        private protected bool PodeMover(Posicao pos) {
+            Peca p = Tab.PecaPeca(pos);
+            return p == null || p.CorCor != CorCor;
+        }
 
 
         public abstract bool[,] MovimentosPossiveis();
