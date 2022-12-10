@@ -34,6 +34,8 @@ namespace xadrez_console {
                     } catch(TabuleiroException e) {
                         Console.WriteLine("Erro na jogada: " + e.Message);
                         Console.ReadLine();
+                    } catch(FormatException e) {
+                        Console.WriteLine("Erro: " + e.Message);
                     }
                 }
                 Console.Clear();
