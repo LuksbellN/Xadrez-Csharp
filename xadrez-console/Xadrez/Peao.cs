@@ -7,7 +7,10 @@ using tabuleiro;
 
 namespace Xadrez {
     internal class Peao : Peca {
-        public Peao(Cor cor, Tabuleiro tab) : base(cor, tab) { }
+        private PartidaXadrez Partida { get; set; }
+        public Peao(Cor cor, Tabuleiro tab, PartidaXadrez partida) : base(cor, tab) {
+            Partida = partida;
+        }
 
         public override bool[,] MovimentosPossiveis() {
             bool[,] matriz = new bool[Tab.Linhas, Tab.Colunas];
@@ -25,14 +28,30 @@ namespace Xadrez {
                 }
 
                 pos.DefinirValores(PosicaoPosicao.Linha - 1, PosicaoPosicao.Coluna + 1);
-                if (Tab.PosicaoValida(pos) && PodeMoverDiagonal(pos)) {
+                if (Tab.PosicaoValida(pos) && ExisteInimigo(pos)) {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
 
                 pos.DefinirValores(PosicaoPosicao.Linha - 1, PosicaoPosicao.Coluna - 1);
-                if (Tab.PosicaoValida(pos) && PodeMoverDiagonal(pos)) {
+                if (Tab.PosicaoValida(pos) && ExisteInimigo(pos)) {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
+
+
+                // #jogadaespecial en passant
+                if (PosicaoPosicao.Linha == 3) {
+                    Posicao esquerda = new Posicao(PosicaoPosicao.Linha, PosicaoPosicao.Coluna - 1);
+                    Console.WriteLine(Partida.VulneravelEnPassant);
+                    if(Tab.PosicaoValida(esquerda) && ExisteInimigo(esquerda) && Tab.PecaPeca(esquerda) == Partida.VulneravelEnPassant) {
+                        matriz[esquerda.Linha - 1, esquerda.Coluna] = true;
+                    }
+
+                    Posicao direita = new Posicao(PosicaoPosicao.Linha, PosicaoPosicao.Coluna + 1);
+                    if (Tab.PosicaoValida(direita) && ExisteInimigo(direita) && Tab.PecaPeca(direita) == Partida.VulneravelEnPassant) {
+                        matriz[direita.Linha - 1, direita.Coluna] = true;
+                    }
+                }
+
             } else {
                 pos.DefinirValores(PosicaoPosicao.Linha + 1, PosicaoPosicao.Coluna);
                 if (Tab.PosicaoValida(pos) && PodeMoverFrente(pos)) {
@@ -44,20 +63,34 @@ namespace Xadrez {
                 }
 
                 pos.DefinirValores(PosicaoPosicao.Linha + 1, PosicaoPosicao.Coluna + 1);
-                if (Tab.PosicaoValida(pos) && PodeMoverDiagonal(pos)) {
+                if (Tab.PosicaoValida(pos) && ExisteInimigo(pos)) {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
 
                 pos.DefinirValores(PosicaoPosicao.Linha + 1, PosicaoPosicao.Coluna - 1);
-                if (Tab.PosicaoValida(pos) && PodeMoverDiagonal(pos)) {
+                if (Tab.PosicaoValida(pos) && ExisteInimigo(pos)) {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
+
+                // #jogadaespecial en passant
+                if (PosicaoPosicao.Linha == 4) {
+                    Posicao esquerda = new Posicao(PosicaoPosicao.Linha, PosicaoPosicao.Coluna - 1);
+                    if (Tab.PosicaoValida(esquerda) && ExisteInimigo(esquerda) && Tab.PecaPeca(esquerda) == Partida.VulneravelEnPassant) {
+                        matriz[esquerda.Linha + 1, esquerda.Coluna] = true;
+                    }
+
+                    Posicao direita = new Posicao(PosicaoPosicao.Linha, PosicaoPosicao.Coluna + 1);
+                    if (Tab.PosicaoValida(direita) && ExisteInimigo(direita) && Tab.PecaPeca(direita) == Partida.VulneravelEnPassant) {
+                        matriz[direita.Linha + 1, direita.Coluna] = true;
+                    }
+                }
+
             }
 
             return matriz;
         }
 
-        private bool PodeMoverDiagonal(Posicao pos) {
+        private bool ExisteInimigo(Posicao pos) {
             Peca p = Tab.PecaPeca(pos);
             return p != null && p.CorCor != CorCor;
         }

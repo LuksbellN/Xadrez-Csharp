@@ -9,7 +9,7 @@ namespace xadrez_console {
             try {
                 PartidaXadrez partida = new PartidaXadrez();
 
-                while(!partida.Terminada) {
+                while (!partida.Terminada) {
 
                     try {
                         Console.Clear();
@@ -31,17 +31,15 @@ namespace xadrez_console {
                         partida.ValidarPosicaoDestino(origem, destino);
 
                         partida.RealizaJogada(origem, destino);
-                    } catch(TabuleiroException e) {
+                    } catch (TabuleiroException e) {
                         Console.WriteLine("Erro na jogada: " + e.Message);
                         Console.ReadLine();
-                    } catch(FormatException e) {
-                        Console.WriteLine("Erro: " + e.Message);
                     }
                 }
                 Console.Clear();
                 Tela.ImprimirPartida(partida);
 
-            } catch(TabuleiroException e) {
+            } catch (TabuleiroException e) {
                 Console.WriteLine(e.Message);
             }
         }

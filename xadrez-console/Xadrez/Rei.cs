@@ -72,11 +72,11 @@ namespace Xadrez {
             if (QtdMovimentos == 0 && !Partida.Xeque) {
                 // #jogadaespecial roque pequeno
                 Posicao posicaoT1 = new Posicao(PosicaoPosicao.Linha, PosicaoPosicao.Coluna + 3);
-                if(TesteTorreRoque(posicaoT1)) {
+                if (TesteTorreRoque(posicaoT1)) {
                     Posicao p1 = new Posicao(PosicaoPosicao.Linha, PosicaoPosicao.Coluna + 1);
                     Posicao p2 = new Posicao(PosicaoPosicao.Linha, PosicaoPosicao.Coluna + 2);
-                    if(Tab.PecaPeca(p1) == null && Tab.PecaPeca(p2) == null) {
-                        matriz[PosicaoPosicao.Linha, PosicaoPosicao.Coluna + 2] = true; 
+                    if (Tab.PecaPeca(p1) == null && Tab.PecaPeca(p2) == null) {
+                        matriz[PosicaoPosicao.Linha, PosicaoPosicao.Coluna + 2] = true;
                     }
                 }
                 // #jogadaespecial roque grande
